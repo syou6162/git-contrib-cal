@@ -1,0 +1,16 @@
+#!/bin/sh
+
+for dir in `ls -d ~/Desktop/work/*`
+do
+  if [ -e "${dir}/.git" ]; then
+    echo $dir
+  fi
+done |
+  while read dir
+  do
+    current_dir=`pwd`
+    cd $dir > /dev/null
+    git --no-pager log --date=short --pretty=format:"%ad"
+    echo
+    cd $current_dir > /dev/null
+  done | git-contrib-cal.rb

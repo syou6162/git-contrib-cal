@@ -1,6 +1,17 @@
 #!/bin/sh
 
-for dir in `ls -d ~/Desktop/work/*`
+dirs=()
+while [ $# -gt 0 ]
+do
+  dirs+=($1)
+  shift
+done
+
+if [ ${#dirs[@]} -eq 0 ]; then
+  dirs=`ls -d ~/Desktop/work/*`
+fi
+
+for dir in ${dirs[@]}
 do
   if [ -e "${dir}/.git" ]; then
     echo $dir
